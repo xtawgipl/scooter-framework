@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.githup.platform.scooterframework</groupId>
+        <artifactId>sf-dependencies-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <groupId>com.githup.platform.scooterframework.common</groupId>
+    <artifactId>sf-common-constants</artifactId>
+    <name>sf::common::constants</name>
+
+    <packaging>jar</packaging>
+
+    <url>https://github.com/xtawgipl/scooter-framework</url>
+    <description>通用常量定义</description>
+
+    <build>
+    </build>
+</project>
