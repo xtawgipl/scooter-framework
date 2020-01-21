@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.githup.platform.scooterframework</groupId>
+    <groupId>com.github.platform.scooterframework</groupId>
     <artifactId>sf-dependencies-parent</artifactId>
     <name>sf::dependencies::parent</name>
 

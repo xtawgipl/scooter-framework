@@ -1,4 +1,4 @@
-package com.githup.platform.sf.common;
+package com.github.platform.sf.common;
 
 /**
  * 常量
