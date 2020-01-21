@@ -11,22 +11,18 @@
     </parent>
 
     <groupId>com.github.platform.scooterframework.web</groupId>
-    <artifactId>sf-web-apiversion</artifactId>
-    <name>sf::web::apiversion</name>
+    <artifactId>sf-web-container</artifactId>
+    <name>sf::web::container</name>
 
     <packaging>jar</packaging>
 
     <url>https://github.com/xtawgipl/scooter-framework</url>
-    <description>spring常用操作</description>
+    <description>服务发现监听</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
