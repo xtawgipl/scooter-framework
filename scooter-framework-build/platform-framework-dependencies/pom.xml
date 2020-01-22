@@ -46,6 +46,10 @@
 
         <!-- 文件处理 -->
         <poi.version>3.9</poi.version>
+        <commons-compress.version>1.12</commons-compress.version>
+
+        <!-- 文件处理 -->
+        <commons-io.version>2.5</commons-io.version>
 
 
         <!-- swagger -->
@@ -189,7 +193,16 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
