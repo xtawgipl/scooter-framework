@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.platform.sf.core.mybatis.page.starter.PageAutoConfiguration,\
+com.github.platform.sf.core.mybatis.datatype.MybatisDataTypeAutoConfiguration

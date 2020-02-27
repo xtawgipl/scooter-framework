@@ -1,6 +1,6 @@
 package com.github.platform.sf.common.util.io;
 
-import com.github.platform.sf.common.Constants;
+import com.github.platform.sf.common.BaseConstants;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class CompressUtil {
             while (entries.hasMoreElements()){
                 ZipEntry entry = entries.nextElement();
                 if(entry.isDirectory()){
-                    String dirPath = destDirPath + Constants.PATH_SPLIT + entry.getName();
+                    String dirPath = destDirPath + BaseConstants.PATH_SPLIT + entry.getName();
                     new File(dirPath).mkdirs();
                 }else{
                     File targetFile = new File(destDirPath + entry.getName());

@@ -37,6 +37,9 @@
         <pagehelper.version>5.1.2</pagehelper.version>
         <jsqlparser.version>0.9.5</jsqlparser.version>
 
+        <!-- 数据源 -->
+        <druid.version>1.0.18</druid.version>
+
         <!-- 工具类 -->
         <fastjson.version>1.2.52</fastjson.version>
         <guava.version>22.0</guava.version>
@@ -44,13 +47,16 @@
         <hutool.version>4.1.19</hutool.version>
 
 
-        <!-- 文件处理 -->
+        <!-- office处理 -->
         <poi.version>3.9</poi.version>
-        <commons-compress.version>1.12</commons-compress.version>
 
-        <!-- 文件处理 -->
+        <!-- 图片缩略图生成 -->
+        <thumbnailator.version>0.4.8</thumbnailator.version>
+
+        <!-- apache commons -->
         <commons-io.version>2.5</commons-io.version>
-
+        <commons-compress.version>1.12</commons-compress.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
 
         <!-- swagger -->
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
@@ -63,7 +69,21 @@
         <!-- 分库分表 -->
         <sharding-jdbc-spring-boot-starter.version>3.0.0</sharding-jdbc-spring-boot-starter.version>
         <sharding-jdbc-spring-namespace.version>3.0.0</sharding-jdbc-spring-namespace.version>
+
+        <!-- 对象转换工具 -->
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
+
+
+        <!-- fastDFS 客户端 -->
+        <fastDFS-tobato-client.version>1.27.2</fastDFS-tobato-client.version>
+
+
+        <!-- maven插件 -->
+        <mybatis-generator-maven-plugin.version>1.4.0</mybatis-generator-maven-plugin.version>
+
     </properties>
+
+
     <dependencyManagement>
         <dependencies>
 
@@ -78,7 +98,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.1.0.RELEASE</version>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -203,8 +223,50 @@
                 <artifactId>commons-compress</artifactId>
                 <version>${commons-compress.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.github.tobato</groupId>
+                <artifactId>fastdfs-client</artifactId>
+                <version>${fastDFS-tobato-client.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.coobird</groupId>
+                <artifactId>thumbnailator</artifactId>
+                <version>${thumbnailator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+
+
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-maven-plugin</artifactId>
+                    <version>${mybatis-generator-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

@@ -6,13 +6,16 @@ package com.github.platform.sf.common;
  * @author zhangjj
  * @create 2020-01-21 11:44
  **/
-public class Constants {
+public class BaseConstants {
 
     /** 路径分割符号 */
     public static final String PATH_SPLIT = "/";
 
     /** 点分隔符 */
     public static final String DOT_SPLIT = ".";
+
+    /** 横线 */
+    public static final String HORIZONTAL_LINE = "-";
 
 
     /** 占位符前缀 */
@@ -21,5 +24,6 @@ public class Constants {
 
     /** 占位符前缀 */
     public static final String PLACEHOLDER_SUFFIX = "}";
+
 
 }

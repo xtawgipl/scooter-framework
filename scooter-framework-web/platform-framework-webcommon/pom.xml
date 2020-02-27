@@ -10,14 +10,14 @@
         <version>1.0</version>
     </parent>
 
-    <groupId>com.github.platform.scooterframework.common</groupId>
-    <artifactId>sf-common-spring-util</artifactId>
-    <name>sf::common::spring::util</name>
+    <groupId>com.github.platform.scooterframework.web</groupId>
+    <artifactId>sf-web-webcommon</artifactId>
+    <name>sf::web::webcommon</name>
 
     <packaging>jar</packaging>
 
     <url>https://github.com/xtawgipl/scooter-framework</url>
-    <description>spring常用操作</description>
+    <description>web常用操作</description>
 
     <dependencies>
         <dependency>
@@ -26,37 +26,33 @@
             <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>com.github.platform.scooterframework.common</groupId>
+            <artifactId>sf-common-constants</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <!--<dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <scope>compile</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 
