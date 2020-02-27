@@ -55,7 +55,7 @@
 
         <!-- apache commons -->
         <commons-io.version>2.5</commons-io.version>
-        <commons-compress.version>1.12</commons-compress.version>
+        <commons-compress.version>1.19</commons-compress.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
 
         <!-- swagger -->
