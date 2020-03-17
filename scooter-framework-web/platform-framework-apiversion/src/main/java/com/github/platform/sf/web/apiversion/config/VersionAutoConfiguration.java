@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
  * @create 2019-12-04 11:26
  **/
 @Configuration
-@ConditionalOnClass(AutoVersionConfiguration.class)
+@ConditionalOnClass(VersionAutoConfiguration.class)
 @Slf4j
-public class AutoVersionConfiguration {
+public class VersionAutoConfiguration {
 
     @Bean
     public WebMvcRegistrationsConfig webMvcRegistrationsConfig(){

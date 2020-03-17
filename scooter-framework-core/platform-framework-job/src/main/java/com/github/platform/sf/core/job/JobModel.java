@@ -1,10 +1,6 @@
-package com.github.platform.sf.common.spring.scheduler;
-
+package com.github.platform.sf.core.job;
 
 import lombok.*;
-
-import java.util.SortedSet;
-import java.util.TreeMap;
 
 /**
  * 任务 基本信息 model
@@ -25,12 +21,12 @@ public class JobModel<T> {
     private String name;
 
     /** 执行表达式 */
-    private String cronExpression;
+    private String cron;
 
     /** 任务描述 */
-    private String JobDescription;
+    private String description;
 
-    /** 扩展业务数据 */
-    private T extData;
+    /** 扩展业务 数据 */
+    private T data;
 
 }

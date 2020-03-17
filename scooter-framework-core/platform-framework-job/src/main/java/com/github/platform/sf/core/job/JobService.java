@@ -1,4 +1,4 @@
-package com.github.platform.sf.common.spring.scheduler;
+package com.github.platform.sf.core.job;
 
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
@@ -30,12 +30,12 @@ public class JobService {
      * 批量启动任务
      * @param jobModels
      */
-    public void batchStart(Class<? extends Job> job, List<JobModel> jobModels){
+    public void batchStart(Class<? extends AbstractJobActuator> jobActuator, List<JobModel> jobModels){
         if(jobModels == null || jobModels.isEmpty()){
             return ;
         }
         for(JobModel jobModel : jobModels){
-            start(job, jobModel);
+            start(jobActuator, jobModel);
         }
     }
 
@@ -56,12 +56,12 @@ public class JobService {
      * 批量重启任务
      * @param jobModels
      */
-    public void batchRestart(Class<? extends Job> job, List<JobModel> jobModels){
+    public void batchRestart(Class<? extends AbstractJobActuator> jobActuator, List<JobModel> jobModels){
         if(jobModels == null || jobModels.isEmpty()){
             return ;
         }
         for(JobModel jobModel : jobModels){
-            restart(job, jobModel);
+            restart(jobActuator, jobModel);
         }
     }
 
@@ -71,18 +71,18 @@ public class JobService {
      * @param jobModel
      * @return
      */
-    public boolean start(Class<? extends Job> job, JobModel jobModel){
+    public boolean start(Class<? extends AbstractJobActuator> jobActuator, JobModel jobModel){
         if (jobModel == null) return false;
         synchronized (LOCK) {
             try {
                 JobKey jobKey = JobUtil.getJobKey(jobModel);
                 Scheduler scheduler = schedulerFactoryBean.getScheduler();
-                boolean exist = checkExists(jobModel);
-                if(exist){// 存在则不处理
+                boolean exist = scheduler.checkExists(jobKey);
+                if(exist){ // 存在则不处理
                     log.info("任务已经存在忽略start指令, jobModel = {}", jobModel);
                 }else{
                     JobDataMap map = JobUtil.getJobDataMap(jobModel);
-                    JobDetail jobDetail = JobUtil.geJobDetail(job, jobKey, jobModel.getJobDescription(), map);
+                    JobDetail jobDetail = JobUtil.geJobDetail(jobActuator, jobKey, jobModel.getDescription(), map);
                     scheduler.scheduleJob(jobDetail, JobUtil.getTrigger(jobModel));
                     log.info("任务启动成功 {}", jobModel);
                 }
@@ -91,17 +91,6 @@ public class JobService {
                 log.error(String.format("任务启动失败 jobModel = %s", jobModel), e);
                 return false;
             }
-        }
-    }
-
-    public boolean checkExists(JobModel jobModel){
-        JobKey jobKey = JobUtil.getJobKey(jobModel);
-        Scheduler scheduler = schedulerFactoryBean.getScheduler();
-        try {
-            return scheduler.checkExists(jobKey);
-        } catch (SchedulerException e) {
-            log.error("", e);
-            return false;
         }
     }
 
@@ -139,7 +128,7 @@ public class JobService {
      * @param jobModel
      * @return
      */
-    public boolean restart(Class<? extends Job> job, JobModel jobModel){
+    public boolean restart(Class<? extends AbstractJobActuator> jobActuator, JobModel jobModel){
         if (jobModel == null) return false;
         synchronized (LOCK) {
             JobKey jobKey = JobUtil.getJobKey(jobModel);
@@ -152,7 +141,7 @@ public class JobService {
                 scheduler.deleteJob(jobKey);
                 log.info("任务删除成功 group = {}, name = {}", jobModel.getGroup(), jobModel.getName());
                 JobDataMap map = JobUtil.getJobDataMap(jobModel);
-                JobDetail jobDetail = JobUtil.geJobDetail(job, jobKey, jobModel.getJobDescription(), map);
+                JobDetail jobDetail = JobUtil.geJobDetail(jobActuator, jobKey, jobModel.getDescription(), map);
                 scheduler.scheduleJob(jobDetail, JobUtil.getTrigger(jobModel));
                 log.info("任务启动成功 group = {}, name = {}", jobModel.getGroup(), jobModel.getName());
                 log.info("任务重启成功 {}", jobModel);
