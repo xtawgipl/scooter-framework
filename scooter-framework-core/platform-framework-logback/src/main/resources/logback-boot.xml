@@ -27,8 +27,6 @@
 
 		<logger name="org.mybatis" level="info" />
 
-		<logger name="cn.com.css.hnsw" level="debug" />
-
 		<root level="info">
 			<appender-ref ref="CONSOLE" />
 		</root>
@@ -114,8 +112,6 @@
 			</encoder>
 		</appender>
 
-		<logger name="cn.com.css.hnsw" level="debug" />
-
 		<root level="debug">
 			<appender-ref ref="CONSOLE" />
 			<appender-ref ref="DEBUG-FILE" />
@@ -198,10 +194,6 @@
 				<pattern>${FILE_LOG_PATTERN}</pattern>
 			</encoder>
 		</appender>
-
-		<logger name="cn.com.css.hnsw" level="debug" />
-	<!--	<logger name="cn.com.css.hnsw.sms.mapper" level="info" />
-		<logger name="org.mybatis" level="info" />-->
 
 		<root level="debug">
 			<appender-ref ref="DEBUG-FILE" />
