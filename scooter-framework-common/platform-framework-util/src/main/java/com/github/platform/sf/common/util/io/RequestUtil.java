@@ -1,5 +1,6 @@
 package com.github.platform.sf.common.util.io;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -46,13 +47,17 @@ public class RequestUtil {
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 responseContent = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
             }
-            log.debug("上报状态 : {}, 返回 : {}", response.getStatusLine().getStatusCode(), responseContent);
+            log.debug("requestUrl : {}，上报状态 : {}, 返回 : {}", url, response.getStatusLine().getStatusCode(), responseContent);
         } catch (Exception e) {
-            log.error("", e);
-        } finally {
-
+            log.error(String.format("requestUrl : %s", url), e);
         }
         return responseContent;
+    }
+
+
+    public static <T> T httpPostJson(Class<T> respClass, String url, String jsonData) {
+        String resp = httpPostJson(url, jsonData);
+        return JSON.parseObject(resp, respClass);
     }
 
 
@@ -79,24 +84,26 @@ public class RequestUtil {
                 StatusCode=httpResponse.getStatusLine().getStatusCode();
                 if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     strResult = EntityUtils.toString(httpResponse.getEntity());
-                    log.info("post/"+StatusCode+":"+strResult);
+                    log.info("{}, post/{}:{}", url, StatusCode, strResult);
                     return strResult;
                 }  else {
                     strResult = "Error Response: " + httpResponse.getStatusLine().toString();
-                    log.info("post/"+StatusCode+":"+strResult);
+                    log.info("{}, post/{}:{}", url, StatusCode, strResult);
                     strResult=null;
                 }
-            } else {
-
             }
 
         } catch (Exception e) {
-            log.error("", e);
-        } finally {
-
+            log.error(String.format("requestUrl = %s", url), e);
         }
 
         return strResult;
+    }
+
+
+    public static <T> T httpPost(Class<T> respClass, String url, List<BasicNameValuePair> list) {
+        String resp = httpPost(url, list);
+        return JSON.parseObject(resp, respClass);
     }
 
     public static String httpGet(String url) {
@@ -107,25 +114,28 @@ public class RequestUtil {
                 .build();
         HttpGet httpGet2 = new HttpGet(url);
         httpGet2.setConfig(requestConfig);
-        String srtResult =null;
+        String strResult =null;
         int StatusCode=404;
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet2);
             StatusCode=httpResponse.getStatusLine().getStatusCode();
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                srtResult = EntityUtils.toString(httpResponse.getEntity());// 获得返回的结果
-                log.info("get/"+StatusCode+":"+srtResult);
-                return srtResult;
+                strResult = EntityUtils.toString(httpResponse.getEntity());// 获得返回的结果
+                log.info("{}, get/{}:{}", url, StatusCode, strResult);
+                return strResult;
             } else {
-                srtResult = EntityUtils.toString(httpResponse.getEntity());// 获得返回的结果
-                log.info("get/"+StatusCode+":"+srtResult);
+                strResult = EntityUtils.toString(httpResponse.getEntity());// 获得返回的结果
+                log.info("{}, get/{}:{}", url, StatusCode, strResult);
                 return null;
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-
+            log.error(String.format("requestUrl = %s", url), e);
         }
         return null;
+    }
+
+    public static <T> T httpGet(Class<T> respClass, String url) {
+        String resp = httpGet(url);
+        return JSON.parseObject(resp, respClass);
     }
 }

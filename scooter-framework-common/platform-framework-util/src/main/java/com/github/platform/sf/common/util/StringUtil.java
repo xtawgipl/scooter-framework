@@ -22,7 +22,7 @@ public class StringUtil {
         if(!src.contains(BaseConstants.DOT_SPLIT)){
             return src;
         }
-        return src.substring(src.lastIndexOf(BaseConstants.DOT_SPLIT));
+        return src.substring(src.lastIndexOf(BaseConstants.DOT_SPLIT) + 1);
     }
 
     public static boolean isEmpty(String src){

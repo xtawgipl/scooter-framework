@@ -60,6 +60,8 @@
         <commons-io.version>2.5</commons-io.version>
         <commons-compress.version>1.12</commons-compress.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <commons-net.version>3.6</commons-net.version>
+        <commons-exec.version>1.3</commons-exec.version>
 
         <!-- swagger -->
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
@@ -290,9 +292,19 @@
                 <version>${commons-io.version}</version>
             </dependency>
             <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons-net.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
                 <version>${commons-compress.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-exec</artifactId>
+                <version>${commons-exec.version}</version>
             </dependency>
 
             <dependency>
