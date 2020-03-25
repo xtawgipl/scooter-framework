@@ -2,7 +2,6 @@ package com.github.platform.sf.common.util.io;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -27,23 +26,19 @@ import java.util.List;
 @Slf4j
 public class RequestUtil {
 
-    private static CloseableHttpClient httpClient = HttpClients.custom().build();
+    private static CloseableHttpClient HTTP_CLIENT = HttpClients.custom().build();
+    // 配置超时时间
+    private static RequestConfig REQUEST_CONFIG = RequestConfig.custom().setConnectTimeout(3000).setConnectionRequestTimeout(3000)
+            .setSocketTimeout(3000).setRedirectsEnabled(true).build();
 
-
-    public static String httpPostJson(String url, String jsonData) {
-
-        // 配置超时时间
-        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(1000).setConnectionRequestTimeout(1000)
-                .setSocketTimeout(1000).setRedirectsEnabled(true).build();
+    public static String httpPostJson(String url, String jsonData, RequestConfig ... config) {
+        RequestConfig requestConfig = config == null || config.length == 0 ? REQUEST_CONFIG : config[0];
         HttpPost post = new HttpPost(url);
         StringEntity entity = new StringEntity(jsonData, ContentType.APPLICATION_JSON);
         post.setEntity(entity);
-
         post.setConfig(requestConfig);
         String responseContent = null;
-        CloseableHttpResponse response = null;
-        try {
-            response = httpClient.execute(post);
+        try (CloseableHttpResponse response = HTTP_CLIENT.execute(post)){
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 responseContent = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
             }
@@ -55,30 +50,25 @@ public class RequestUtil {
     }
 
 
-    public static <T> T httpPostJson(Class<T> respClass, String url, String jsonData) {
-        String resp = httpPostJson(url, jsonData);
+    public static <T> T httpPostJson(Class<T> respClass, String url, String jsonData, RequestConfig ... config) {
+        String resp = httpPostJson(url, jsonData, config);
         return JSON.parseObject(resp, respClass);
     }
 
 
 
-    public static String httpPost(String url, List<BasicNameValuePair> list) {
-
-        // 配置超时时间
-        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(1000).setConnectionRequestTimeout(1000)
-                .setSocketTimeout(1000).setRedirectsEnabled(true).build();
-
+    public static String httpPost(String url, List<BasicNameValuePair> list, RequestConfig ... config) {
+        RequestConfig requestConfig = config == null || config.length == 0 ? REQUEST_CONFIG : config[0];
         HttpPost httpPost = new HttpPost(url);
         // 设置超时时间
         httpPost.setConfig(requestConfig);
 
         String strResult = "";
         int StatusCode;
-        try {
+        try (CloseableHttpResponse httpResponse = HTTP_CLIENT.execute(httpPost)){
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(list, StandardCharsets.UTF_8);
             // 设置post求情参数
             httpPost.setEntity(entity);
-            HttpResponse httpResponse = httpClient.execute(httpPost);
 
             if (httpResponse != null) {
                 StatusCode=httpResponse.getStatusLine().getStatusCode();
@@ -101,23 +91,18 @@ public class RequestUtil {
     }
 
 
-    public static <T> T httpPost(Class<T> respClass, String url, List<BasicNameValuePair> list) {
-        String resp = httpPost(url, list);
+    public static <T> T httpPost(Class<T> respClass, String url, List<BasicNameValuePair> list, RequestConfig ... config) {
+        String resp = httpPost(url, list, config);
         return JSON.parseObject(resp, respClass);
     }
 
-    public static String httpGet(String url) {
-
-        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(5000) // 设置连接超时时间
-                .setConnectionRequestTimeout(5000) // 设置请求超时时间
-                .setSocketTimeout(5000).setRedirectsEnabled(true)// 默认允许自动重定向
-                .build();
-        HttpGet httpGet2 = new HttpGet(url);
-        httpGet2.setConfig(requestConfig);
-        String strResult =null;
-        int StatusCode=404;
-        try {
-            HttpResponse httpResponse = httpClient.execute(httpGet2);
+    public static String httpGet(String url, RequestConfig ... config) {
+        RequestConfig requestConfig = config == null || config.length == 0 ? REQUEST_CONFIG : config[0];
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setConfig(requestConfig);
+        String strResult;
+        int StatusCode;
+        try (CloseableHttpResponse httpResponse = HTTP_CLIENT.execute(httpGet)){
             StatusCode=httpResponse.getStatusLine().getStatusCode();
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 strResult = EntityUtils.toString(httpResponse.getEntity());// 获得返回的结果
@@ -134,8 +119,9 @@ public class RequestUtil {
         return null;
     }
 
-    public static <T> T httpGet(Class<T> respClass, String url) {
-        String resp = httpGet(url);
+    public static <T> T httpGet(Class<T> respClass, String url, RequestConfig ... config) {
+        String resp = httpGet(url, config);
         return JSON.parseObject(resp, respClass);
     }
+
 }
