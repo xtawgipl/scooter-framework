@@ -40,6 +40,9 @@
         <pagehelper.version>5.1.2</pagehelper.version>
         <jsqlparser.version>0.9.5</jsqlparser.version>
 
+        <!-- 数据库驱动 -->
+        <mysql-connector-java.version>8.0.18</mysql-connector-java.version>
+
         <!-- 数据源 -->
         <druid.version>1.0.18</druid.version>
 
