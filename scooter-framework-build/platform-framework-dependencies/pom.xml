@@ -54,7 +54,7 @@
 
 
         <!-- office处理 -->
-        <poi.version>3.9</poi.version>
+        <poi.version>4.1.2</poi.version>
 
         <!-- 图片缩略图生成 -->
         <thumbnailator.version>0.4.8</thumbnailator.version>
