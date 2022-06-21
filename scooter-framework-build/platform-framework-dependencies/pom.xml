@@ -41,7 +41,7 @@
         <jsqlparser.version>0.9.5</jsqlparser.version>
 
         <!-- 数据库驱动 -->
-        <mysql-connector-java.version>8.0.18</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
 
         <!-- 数据源 -->
         <druid.version>1.1.21</druid.version>
